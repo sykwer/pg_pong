@@ -1,0 +1,3 @@
+GAME_NAME = "Pong-v0"
+ACTION_UP = 2
+ACTION_DOWN = 3
