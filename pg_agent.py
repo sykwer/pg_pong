@@ -4,7 +4,7 @@ from policy_network import PolicyNetwork
 from utils import pre_process_img
 from const import ACTION_UP, ACTION_DOWN
 
-IS_RESUME = False
+IS_RESUME = True
 GAMMA = 0.99 # reward discount
 
 class PGAgent():
