@@ -65,7 +65,7 @@ class PGAgent():
         reward_cursor = 0
 
         for i in reversed(range(len(rewards))):
-            if rewards[i] == 0: reward_cursor = 0
+            if rewards[i] != 0: reward_cursor = 0
             reward_cursor = reward_cursor * GAMMA + rewards[i]
             discounted_rewards[i] = reward_cursor
 
