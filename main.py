@@ -7,6 +7,7 @@ from const import GAME_NAME
 
 BATCH_SIZE = 10
 SAVE_SIZE = 100
+SHOW_MOVIE = True
 
 def main():
     env = gym.make(GAME_NAME)
@@ -16,7 +17,7 @@ def main():
     reward_sum = 0
 
     while True:
-        env.render()
+        if SHOW_MOVIE: env.render()
 
         action = agent.select_action()
         observation, reward, done, info = env.step(action) # move paddle!!!1!
