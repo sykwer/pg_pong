@@ -37,7 +37,7 @@ class PolicyNetwork:
         dw1 = np.dot(dh.T, episode_x)
         return { "w1": dw1, "w2": dw2 }
 
-    def update(self, grads):
+    def update(self):
         for k, v in self.model.items():
             grad = self.grads_buffer[k]
 

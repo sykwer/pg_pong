@@ -72,5 +72,5 @@ class PGAgent():
         return discounted_rewards
 
     def train_net(self):
-        self.net.update(self.net.grads_buffer)
+        self.net.update()
 
