@@ -34,7 +34,8 @@ class PGAgent():
         return self.action
 
     def add_history(self, reward):
-        dlogp = self.action - self.up_prob
+        fake_target = 1 if self.action == ACTION_UP else 0
+        dlogp = fake_target - self.up_prob
 
         self.x_history.append(self.x)
         self.h_history.append(self.net.h)
@@ -46,11 +47,11 @@ class PGAgent():
         advantages -= np.mean(advantages)
         advantages /= np.std(advantages)
 
-        episode_logp = advantages * self.dlogp_history
+        drewards_sum = advantages * self.dlogp_history
         grads = self.net.backward(
                 np.vstack(self.x_history),
                 np.vstack(self.h_history),
-                episode_logp)
+                drewards_sum)
         for k in self.net.model: self.net.grads_buffer[k] += grads[k]
 
         self.x_history = []

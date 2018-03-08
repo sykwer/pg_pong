@@ -30,9 +30,9 @@ class PolicyNetwork:
         p = sigmoid(logp)
         return p
 
-    def backward(self, episode_x, episode_h, episode_logp):
-        dw2 = np.dot(episode_h.T, episode_logp).ravel()
-        dh = np.outer(episode_logp, self.model["w2"])
+    def backward(self, episode_x, episode_h, drewards_sum):
+        dw2 = np.dot(episode_h.T, drewards_sum).ravel()
+        dh = np.outer(drewards_sum, self.model["w2"])
         dh[dh <= 0] = 0 # ReLU backprop
         dw1 = np.dot(dh.T, episode_x)
         return { "w1": dw1, "w2": dw2 }
