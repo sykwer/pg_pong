@@ -12,6 +12,7 @@ SHOW_MOVIE = True
 def main():
     env = gym.make(GAME_NAME)
     agent = PGAgent(env)
+    observation = env.reset()
 
     episodes_num = 0
     reward_sum = 0
@@ -19,7 +20,7 @@ def main():
     while True:
         if SHOW_MOVIE: env.render()
 
-        action = agent.select_action()
+        action = agent.select_action(observation)
         observation, reward, done, info = env.step(action) # move paddle!!!1!
 
         reward_sum += reward
@@ -35,8 +36,10 @@ def main():
             if episodes_num % SAVE_SIZE == 0: pickle.dump(agent.net.model, open("model.p", "wb"))
 
             print("Reset env. Total rewards in this episode: %f" % reward_sum)
+
             reward_sum = 0
-            agent.reset()
+            observation = env.reset()
+            agent.prev_x = None
 
 
 if __name__ == "__main__":

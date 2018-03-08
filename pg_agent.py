@@ -10,7 +10,6 @@ GAMMA = 0.99 # reward discount
 class PGAgent():
     def __init__(self, env):
         self.env = env
-        self.observation = env.reset()
         self.prev_x = None
         self.net = PolicyNetwork(IS_RESUME)
 
@@ -19,12 +18,8 @@ class PGAgent():
         self.dlogp_history = []
         self.reward_history = []
 
-    def reset(self):
-        self.observation = self.env.reset()
-        self.prev_x = None
-
-    def select_action(self):
-        current_x = pre_process_img(self.observation)
+    def select_action(self, observation):
+        current_x = pre_process_img(observation)
         self.x = current_x - (self.prev_x if self.prev_x is not None else np.zeros_like(current_x))
         self.prev_x = current_x
 
